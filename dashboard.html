@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - SITTA Universitas Terbuka</title>
+  <meta name="description" content="Dashboard Utama SITTA Universitas Terbuka: Informasi Bahan Ajar, Tracking DO, Monitoring Progress, dan Rekapitulasi BMP.">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/svg+xml" href="img/logo-ut.svg">
+</head>
+<body>
+
+  <!-- ==========================================
+       TOP NAVBAR
+       ========================================== -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <div class="brand">
+        <img src="img/logo-ut.svg" alt="Universitas Terbuka" class="brand-logo">
+        <div class="brand-text">
+          <h1>SITTA <span>UT</span></h1>
+          <p>Tiras &amp; Transaksi Bahan Ajar</p>
+        </div>
+      </div>
+
+      <nav aria-label="Navigasi Utama">
+        <ul id="navLinks" class="nav-links">
+          <li><a href="dashboard.html" class="active"><span>🏠</span> Beranda</a></li>
+          <li><a href="stok.html"><span>📚</span> Informasi Bahan Ajar</a></li>
+          <li><a href="tracking.html"><span>🚚</span> Tracking Pengiriman</a></li>
+          <li><a href="#menuLayanan"><span>📋</span> Menu Layanan</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-user">
+        <div class="user-badge">
+          <div class="user-avatar-initial" id="navAvatarInitial">R</div>
+          <div class="user-info">
+            <span class="user-name" id="navUserName">Rina Wulandari</span>
+            <span class="user-role" id="navUserRole">UPBJJ-UT Jakarta</span>
+          </div>
+        </div>
+        <button type="button" class="btn-logout" title="Keluar dari sistem SITTA">
+          <span>Keluar</span> 🚪
+        </button>
+        <button type="button" id="navToggle" class="nav-toggle" aria-label="Buka menu navigasi">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ==========================================
+         HERO BANNER & SAPAAN DINAMIS WAKTU
+         ========================================== -->
+    <section class="hero-banner" aria-label="Sapaan Pengguna">
+      <div class="container hero-content">
+        <div>
+          <div class="greeting-pill">
+            <span id="greetingIcon">☀️</span>
+            <span id="displayUserRolePill">Sistem Informasi Tiras &amp; Bahan Ajar Terpadu</span>
+          </div>
+          <!-- Teks Sapaan Otomatis Menggunakan Date Methods -->
+          <h2 class="greeting-title" id="greetingText">Selamat Datang di SITTA UT!</h2>
+          <p class="hero-subtitle">
+            Pantau ketersediaan fisik Buku Materi Pokok (BMP) dan lacak pengiriman Delivery Order (DO) bahan ajar ke seluruh wilayah UPBJJ Universitas Terbuka.
+          </p>
+        </div>
+
+        <!-- Live Clock & Date Widget (JavaScript Date Methods) -->
+        <div class="hero-clock-box">
+          <div class="clock-timezone">Waktu Lokal Pengguna</div>
+          <div class="clock-time" id="liveClockTime">00:00:00 WIB</div>
+          <div class="clock-date" id="liveClockDate">Sabtu, 17 Oktober 2026</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <!-- ==========================================
+           METRIC SUMMARY CARDS
+           ========================================== -->
+      <section class="metrics-grid" aria-label="Statistik Utama">
+        <div class="metric-card">
+          <div class="metric-icon blue">📚</div>
+          <div class="metric-data">
+            <h4 id="dashTotalBuku">5 Modul BMP</h4>
+            <p>Katalog Bahan Ajar Aktif</p>
+          </div>
+        </div>
+
+        <div class="metric-card">
+          <div class="metric-icon gold">🚚</div>
+          <div class="metric-data">
+            <h4>2 Paket DO</h4>
+            <p>Pengiriman Bahan Ajar</p>
+          </div>
+        </div>
+
+        <div class="metric-card">
+          <div class="metric-icon green">✅</div>
+          <div class="metric-data">
+            <h4>1.587 Eks</h4>
+            <p>Total Fisik Buku di Gudang</p>
+          </div>
+        </div>
+
+        <div class="metric-card">
+          <div class="metric-icon purple">🏢</div>
+          <div class="metric-data">
+            <h4 id="displayUserLokasi">UPBJJ Jakarta</h4>
+            <p>Lokasi Wilayah Kerja</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================
+           QUICK SEARCH DELIVERY ORDER (DO)
+           ========================================== -->
+      <section class="section-header" style="margin-top: 36px;">
+        <div>
+          <h2 class="section-title">Pelacakan Cepat Delivery Order (DO)</h2>
+          <p class="section-desc">Masukkan nomor DO untuk langsung memantau status pengiriman dan linimasa perjalanan paket</p>
+        </div>
+      </section>
+
+      <div class="tracking-search-box">
+        <form id="formQuickTrack" class="search-form-row">
+          <div class="input-group">
+            <span class="input-icon">🔍</span>
+            <input 
+              type="text" 
+              id="inputQuickDO" 
+              class="form-control" 
+              placeholder="Masukkan Nomor DO (misal: 2023001234)" 
+              value="2023001234" 
+              required
+            >
+          </div>
+          <button type="submit" class="btn btn-primary">
+            Lacak DO Sekarang ➔
+          </button>
+        </form>
+        <div class="search-quick-chips">
+          <span class="chips-label">Nomor DO Terdaftar di Data:</span>
+          <a href="tracking.html?do=2023001234" class="chip-btn">2023001234 (Rina Wulandari - JNE)</a>
+          <a href="tracking.html?do=2023005678" class="chip-btn">2023005678 (Agus Pranoto - Pos Indo)</a>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           6 MANDATED NAVIGATION FEATURES
+           1. Informasi Bahan Ajar
+           2. Tracking Pengiriman
+           3. Laporan
+           4. Monitoring Progress DO
+           5. Rekap Bahan Ajar
+           6. Histori Transaksi
+           ========================================== -->
+      <section id="menuLayanan" class="section-header" style="margin-top: 48px;">
+        <div>
+          <h2 class="section-title">Menu Utama &amp; Layanan Navigasi SITTA</h2>
+          <p class="section-desc">Fitur operasional pengelolaan tiras dan logistik bahan ajar Universitas Terbuka</p>
+        </div>
+      </section>
+
+      <section class="features-grid" aria-label="Menu Utama SITTA">
+        <!-- 1. Informasi Bahan Ajar -->
+        <article class="feature-card">
+          <div>
+            <div class="feature-top">
+              <div class="feature-icon-wrapper" style="background: #eff6ff; color: #003f7a;">📚</div>
+              <span class="feature-badge">Katalog Lengkap</span>
+            </div>
+            <h3 class="feature-title">Informasi Bahan Ajar</h3>
+            <p class="feature-desc">
+              Katalog seluruh Buku Materi Pokok (BMP) UT dari data.js, menampilkan kode lokasi, kode barang, edisi, stok fisik, dan fitur penambahan stok interaktif tanpa reload.
+            </p>
+          </div>
+          <a href="stok.html" class="feature-action">
+            Buka Informasi Bahan Ajar ➔
+          </a>
+        </article>
+
+        <!-- 2. Tracking Pengiriman -->
+        <article class="feature-card">
+          <div>
+            <div class="feature-top">
+              <div class="feature-icon-wrapper" style="background: #fffbeb; color: #b45309;">🚚</div>
+              <span class="feature-badge" style="background: #ecfdf5; color: #047857;">Live Tracking</span>
+            </div>
+            <h3 class="feature-title">Tracking Pengiriman</h3>
+            <p class="feature-desc">
+              Pelacakan nomor Delivery Order (DO) mahasiswa secara real-time, status pengiriman, ekspedisi (JNE/Pos), tanggal kirim, total biaya, dan detail linimasa perjalanan.
+            </p>
+          </div>
+          <a href="tracking.html" class="feature-action">
+            Lacak Delivery Order (DO) ➔
+          </a>
+        </article>
+
+        <!-- 3. Laporan -->
+        <article class="feature-card">
+          <div>
+            <div class="feature-top">
+              <div class="feature-icon-wrapper" style="background: #f0fdf4; color: #15803d;">📊</div>
+              <span class="feature-badge">Statistik &amp; Dokumen</span>
+            </div>
+            <h3 class="feature-title">Laporan</h3>
+            <p class="feature-desc">
+              Laporan berkala penerbitan DO semesteran, rekapitulasi distribusi modul ke setiap kantor UPBJJ wilayah, dan berita acara serah terima bahan ajar.
+            </p>
+          </div>
+          <a href="javascript:void(0)" onclick="openModal('modalLaporan')" class="feature-action">
+            Lihat Dokumen Laporan ➔
+          </a>
+        </article>
+
+        <!-- 4. Monitoring Progress DO -->
+        <article class="feature-card">
+          <div>
+            <div class="feature-top">
+              <div class="feature-icon-wrapper" style="background: #f5f3ff; color: #6d28d9;">⏱️</div>
+              <span class="feature-badge">Monitoring SLA</span>
+            </div>
+            <h3 class="feature-title">Monitoring Progress DO</h3>
+            <p class="feature-desc">
+              Pantau tahapan Service Level Agreement (SLA) pencetakan tiras, proses bagging di Gudang UT Pondok Cabe, hingga serah terima drop point ekspedisi.
+            </p>
+          </div>
+          <a href="javascript:void(0)" onclick="openModal('modalMonitoringDO')" class="feature-action">
+            Lihat Monitoring Progress DO ➔
+          </a>
+        </article>
+
+        <!-- 5. Rekap Bahan Ajar -->
+        <article class="feature-card">
+          <div>
+            <div class="feature-top">
+              <div class="feature-icon-wrapper" style="background: #fff1f2; color: #be123c;">📋</div>
+              <span class="feature-badge">Gudang &amp; Tiras</span>
+            </div>
+            <h3 class="feature-title">Rekap Bahan Ajar</h3>
+            <p class="feature-desc">
+              Rekapitulasi kuantitas ketersediaan stok fisik per UPBJJ dan identifikasi modul BMP yang stoknya mendekati batas minimum tiras.
+            </p>
+          </div>
+          <a href="javascript:void(0)" onclick="openModal('modalRekap')" class="feature-action">
+            Buka Rekap Bahan Ajar ➔
+          </a>
+        </article>
+
+        <!-- 6. Histori Transaksi -->
+        <article class="feature-card">
+          <div>
+            <div class="feature-top">
+              <div class="feature-icon-wrapper" style="background: #f8fafc; color: #334155;">🧾</div>
+              <span class="feature-badge">Riwayat Transaksi</span>
+            </div>
+            <h3 class="feature-title">Histori Transaksi</h3>
+            <p class="feature-desc">
+              Arsip riwayat transaksi pengiriman Delivery Order (DO) bahan ajar semester berjalan dan semester sebelumnya beserta rekap biaya dan resi.
+            </p>
+          </div>
+          <a href="javascript:void(0)" onclick="openModal('modalHistori')" class="feature-action">
+            Lihat Histori Transaksi ➔
+          </a>
+        </article>
+      </section>
+    </div>
+  </main>
+
+  <!-- ==========================================
+       MODALS UNTUK MENU LAYANAN INTERAKTIF
+       ========================================== -->
+  <!-- Modal Laporan -->
+  <div id="modalLaporan" class="modal-overlay" role="dialog" aria-modal="true">
+    <div class="modal-container" style="max-width: 600px;">
+      <div class="modal-header">
+        <h3>📊 Laporan Distribusi Bahan Ajar UT</h3>
+        <button type="button" class="modal-close-btn" onclick="closeModal('modalLaporan')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="color: #64748b; font-size: 0.9rem; margin-bottom: 16px;">
+          Ringkasan distribusi modul bahan ajar periode semester 2025/2026 ke unit layanan UPBJJ.
+        </p>
+        <div style="background: #f8fafc; border-radius: 8px; padding: 14px; border: 1px solid #e2e8f0; font-size: 0.88rem;">
+          <div style="display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px dashed #cbd5e1;">
+            <span>Total DO Diterbitkan:</span> <strong>12.450 Paket</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px dashed #cbd5e1;">
+            <span>DO Sukses Terkirim:</span> <strong style="color: #10b981;">11.890 Paket (95.5%)</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between; padding: 6px 0;">
+            <span>DO Dalam Perjalanan:</span> <strong style="color: #f59e0b;">560 Paket (4.5%)</strong>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="closeModal('modalLaporan')">Tutup</button>
+        <button type="button" class="btn btn-primary" onclick="alert('Laporan versi cetak (PDF) berhasil diunduh.'); closeModal('modalLaporan');">Unduh Berkas Laporan (PDF)</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Monitoring Progress DO -->
+  <div id="modalMonitoringDO" class="modal-overlay" role="dialog" aria-modal="true">
+    <div class="modal-container" style="max-width: 600px;">
+      <div class="modal-header">
+        <h3>⏱️ Monitoring Progress Delivery Order (SLA)</h3>
+        <button type="button" class="modal-close-btn" onclick="closeModal('modalMonitoringDO')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div style="display: flex; flex-direction: column; gap: 12px; font-size: 0.88rem;">
+          <div style="padding: 12px; background: #ecfdf5; border-radius: 8px; border-left: 4px solid #10b981;">
+            <strong>Tahap 1: Verifikasi Registrasi &amp; Cetak Tiras</strong>
+            <p style="color: #047857; margin-top: 4px;">Status: Selesai 100% (SLA Tercapai)</p>
+          </div>
+          <div style="padding: 12px; background: #eff6ff; border-radius: 8px; border-left: 4px solid #3b82f6;">
+            <strong>Tahap 2: Bagging &amp; Packaging Gudang Pondok Cabe</strong>
+            <p style="color: #1d4ed8; margin-top: 4px;">Status: Berjalan (Proses Scan Barcode &amp; Resi Ekspedisi)</p>
+          </div>
+          <div style="padding: 12px; background: #fffdf5; border-radius: 8px; border-left: 4px solid #f59e0b;">
+            <strong>Tahap 3: Serah Terima Ekspedisi (JNE / Pos Indonesia)</strong>
+            <p style="color: #b45309; margin-top: 4px;">Status: Terjadwal pick-up harian pukul 16.00 WIB</p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="closeModal('modalMonitoringDO')">Tutup</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Rekap Bahan Ajar -->
+  <div id="modalRekap" class="modal-overlay" role="dialog" aria-modal="true">
+    <div class="modal-container" style="max-width: 600px;">
+      <div class="modal-header">
+        <h3>📋 Rekapitulasi Bahan Ajar Per Wilayah</h3>
+        <button type="button" class="modal-close-btn" onclick="closeModal('modalRekap')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <table class="data-table" style="font-size: 0.85rem;">
+          <thead>
+            <tr>
+              <th>Kode Wilayah</th>
+              <th>Nama UPBJJ</th>
+              <th>Total Stok Tersedia</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>0TMP01</code></td>
+              <td>Gudang Transit Pusat</td>
+              <td><strong>548 Eks</strong></td>
+            </tr>
+            <tr>
+              <td><code>0JKT01</code></td>
+              <td>UPBJJ-UT Jakarta</td>
+              <td><strong>392 Eks</strong></td>
+            </tr>
+            <tr>
+              <td><code>0SBY02</code></td>
+              <td>UPBJJ-UT Surabaya</td>
+              <td><strong>278 Eks</strong></td>
+            </tr>
+            <tr>
+              <td><code>0MLG01</code></td>
+              <td>UPBJJ-UT Malang</td>
+              <td><strong>165 Eks</strong></td>
+            </tr>
+            <tr>
+              <td><code>0UPBJJBDG</code></td>
+              <td>UPBJJ-UT Bandung</td>
+              <td><strong>204 Eks</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="closeModal('modalRekap')">Tutup</button>
+        <a href="stok.html" class="btn btn-primary">Buka Halaman Stok Lengkap</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Histori Transaksi -->
+  <div id="modalHistori" class="modal-overlay" role="dialog" aria-modal="true">
+    <div class="modal-container" style="max-width: 600px;">
+      <div class="modal-header">
+        <h3>🧾 Histori Transaksi Pengiriman Bahan Ajar</h3>
+        <button type="button" class="modal-close-btn" onclick="closeModal('modalHistori')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div style="font-size: 0.88rem; display: flex; flex-direction: column; gap: 10px;">
+          <div style="padding: 12px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px;">
+            <div style="display: flex; justify-content: space-between; font-weight: 700;">
+              <span>DO 2023001234</span>
+              <span class="badge badge-warning">Dalam Perjalanan</span>
+            </div>
+            <div style="color: #64748b; font-size: 0.8rem; margin-top: 4px;">
+              Penerima: Rina Wulandari • Ekspedisi: JNE • Biaya: Rp 180.000
+            </div>
+          </div>
+          <div style="padding: 12px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px;">
+            <div style="display: flex; justify-content: space-between; font-weight: 700;">
+              <span>DO 2023005678</span>
+              <span class="badge badge-success">Dikirim / Selesai</span>
+            </div>
+            <div style="color: #64748b; font-size: 0.8rem; margin-top: 4px;">
+              Penerima: Agus Pranoto • Ekspedisi: Pos Indonesia • Biaya: Rp 220.000
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="closeModal('modalHistori')">Tutup</button>
+        <a href="tracking.html" class="btn btn-primary">Buka Pelacakan DO</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="toast-container" aria-live="polite"></div>
+
+  <!-- Scripts Modular -->
+  <script src="js/data.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>
