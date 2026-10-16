@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 420" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgDef" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="60%" stop-color="#334155"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+  </defs>
+  
+  <rect width="300" height="420" rx="8" fill="url(#bgDef)"/>
+  <rect x="0" y="0" width="14" height="420" fill="rgba(0,0,0,0.3)"/>
+  <line x1="14" y1="0" x2="14" y2="420" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+
+  <!-- Top Header Band -->
+  <rect x="24" y="24" width="252" height="46" rx="6" fill="#ffffff"/>
+  <circle cx="48" cy="47" r="14" fill="#003580"/>
+  <text x="48" y="52" fill="#ffd000" font-family="'Segoe UI', sans-serif" font-weight="900" font-size="14" text-anchor="middle">UT</text>
+  <text x="72" y="42" fill="#0f172a" font-family="'Segoe UI', sans-serif" font-weight="800" font-size="11">BUKU MATERI POKOK</text>
+  <text x="72" y="56" fill="#0284c7" font-family="'Segoe UI', sans-serif" font-weight="700" font-size="9" letter-spacing="1">UNIVERSITAS TERBUKA</text>
+
+  <!-- Code & SKS Tag -->
+  <rect x="24" y="90" width="140" height="26" rx="4" fill="#ffd000"/>
+  <text x="94" y="107" fill="#002855" font-family="'Segoe UI', sans-serif" font-weight="900" font-size="12" text-anchor="middle">BMP TERBARU</text>
+
+  <!-- Title -->
+  <text x="24" y="145" fill="#ffffff" font-family="'Segoe UI', sans-serif" font-weight="900" font-size="22">MODUL BAHAN</text>
+  <text x="24" y="172" fill="#93c5fd" font-family="'Segoe UI', sans-serif" font-weight="900" font-size="22">AJAR UT</text>
+  <text x="24" y="195" fill="#cbd5e1" font-family="'Segoe UI', sans-serif" font-weight="600" font-size="12">EDISI TERKINI</text>
+
+  <!-- Illustration: Open Book with Star -->
+  <g transform="translate(80, 220)">
+    <path d="M 10,75 Q 70,50 70,80 Q 70,50 130,75 L 130,40 Q 70,15 70,45 Q 70,15 10,40 Z" fill="#ffffff" opacity="0.9"/>
+    <polygon points="70,10 74,22 86,22 76,30 80,42 70,34 60,42 64,30 54,22 66,22" fill="#ffd000"/>
+  </g>
+
+  <!-- Author & Bottom Bar -->
+  <line x1="24" y1="365" x2="276" y2="365" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+  <text x="24" y="385" fill="#ffffff" font-family="'Segoe UI', sans-serif" font-weight="700" font-size="11">Tim Pengembang Bahan Ajar</text>
+  <text x="24" y="400" fill="#94a3b8" font-family="'Segoe UI', sans-serif" font-size="9">Universitas Terbuka Republik Indonesia</text>
+</svg>
