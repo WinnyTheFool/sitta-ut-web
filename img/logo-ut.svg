@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="100%" height="100%">
+  <defs>
+    <linearGradient id="utBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#003580"/>
+      <stop offset="100%" stop-color="#001d4a"/>
+    </linearGradient>
+    <linearGradient id="utGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffd000"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <!-- Outer Ring -->
+  <circle cx="100" cy="100" r="92" fill="url(#utBlue)" filter="url(#shadow)"/>
+  <circle cx="100" cy="100" r="86" fill="none" stroke="url(#utGold)" stroke-width="3"/>
+  <circle cx="100" cy="100" r="76" fill="#ffffff"/>
+
+  <!-- Globe Latitudes / Longitudes -->
+  <circle cx="100" cy="100" r="62" fill="#003580"/>
+  <ellipse cx="100" cy="100" rx="36" ry="62" fill="none" stroke="#2563eb" stroke-width="1.8"/>
+  <ellipse cx="100" cy="100" rx="62" ry="32" fill="none" stroke="#2563eb" stroke-width="1.8"/>
+  <line x1="38" y1="100" x2="162" y2="100" stroke="#2563eb" stroke-width="2"/>
+  <line x1="100" y1="38" x2="100" y2="162" stroke="#2563eb" stroke-width="2"/>
+
+  <!-- Golden Open Book of Knowledge -->
+  <path d="M 68,124 Q 100,112 100,126 Q 100,112 132,124 L 132,100 Q 100,88 100,102 Q 100,88 68,100 Z" fill="url(#utGold)" stroke="#b45309" stroke-width="1.5"/>
+
+  <!-- Golden Flaming Torch -->
+  <path d="M 94,84 L 106,84 L 102,108 L 98,108 Z" fill="url(#utGold)"/>
+  <!-- Flame -->
+  <path d="M 100,60 C 108,70 112,74 107,82 C 104,86 96,86 93,82 C 88,74 92,70 100,60 Z" fill="#ef4444"/>
+  <path d="M 100,65 C 104,72 107,75 104,80 C 102,83 98,83 96,80 C 93,75 96,72 100,65 Z" fill="#fbbf24"/>
+
+  <!-- Text Arc Simulation -->
+  <path id="curveTop" d="M 32,100 A 68,68 0 0,1 168,100" fill="none"/>
+  <text font-family="'Segoe UI', Arial, sans-serif" font-size="11" font-weight="900" fill="#002855" letter-spacing="3.5">
+    <textPath href="#curveTop" startOffset="50%" text-anchor="middle">
+      UNIVERSITAS TERBUKA
+    </textPath>
+  </text>
+  
+  <path id="curveBottom" d="M 166,108 A 68,68 0 0,1 34,108" fill="none"/>
+  <text font-family="'Segoe UI', Arial, sans-serif" font-size="9" font-weight="800" fill="#d97706" letter-spacing="2">
+    <textPath href="#curveBottom" startOffset="50%" text-anchor="middle">
+      DISTRIBUSI BAHAN AJAR
+    </textPath>
+  </text>
+</svg>
