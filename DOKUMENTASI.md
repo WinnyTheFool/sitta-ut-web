@@ -3,94 +3,119 @@
 
 - **Mata Kuliah:** Pemrograman Web (Praktikum)
 - **Instansi:** Universitas Terbuka (UT)
-- **Lokasi Berkas:** `c:\Users\alleg\.gemini\antigravity-ide\scratch\sitta-ut-web\`
+- **Repositori GitHub:** [https://github.com/WinnyTheFool/sitta-ut-web](https://github.com/WinnyTheFool/sitta-ut-web)
+- **Lokasi Berkas:** Direktori root hasil clone (`./sitta-ut-web/`)
 
 ---
 
-### I. DESKRIPSI SISTEM
-Sistem Informasi Tiras dan Transaksi Bahan Ajar (**SITTA UT**) adalah aplikasi berbasis web yang digunakan oleh sivitas akademika Universitas Terbuka (UPBJJ, Pusat Pengelolaan Bahan Ajar/Puslaba, Fakultas, dan Mahasiswa) untuk:
-1. Melakukan autentikasi pengguna dengan multi-peran dan validasi hak akses.
-2. Memantau ketersediaan stok Buku Materi Pokok (BMP) secara terpusat.
-3. Menambahkan data stok bahan ajar baru secara interaktif langsung ke antarmuka pengguna tanpa me-reload peramban.
-4. Melacak status pengiriman dan riwayat perjalanan *Delivery Order* (DO) bahan ajar ke seluruh Indonesia secara *real-time*.
+### I. PANDUAN PENGGUNAAN SETELAH CLONE
+
+Setelah pengguna atau penguji meng-clone proyek dari GitHub:
+
+```bash
+# 1. Clone repositori
+git clone https://github.com/WinnyTheFool/sitta-ut-web.git
+
+# 2. Masuk ke direktori proyek
+cd sitta-ut-web
+```
+
+Karena proyek ini dikembangkan secara murni menggunakan teknologi standar web front-end (**HTML5, CSS3, dan Vanilla JavaScript**), tidak dibutuhkan dependensi tambahan (`npm install` atau compiler):
+1. **Membuka Langsung:** Buka berkas `index.html` dengan klik dua kali dari file manager atau peramban pilihan Anda.
+2. **Menggunakan Live Server:** Buka folder `sitta-ut-web` pada VS Code atau IDE Anda, lalu klik kanan `index.html` ➔ pilih **"Open with Live Server"**.
 
 ---
 
-### II. STRUKTUR DAN LOKASI FILE
-Semua berkas proyek berada di dalam folder:
-`c:\Users\alleg\.gemini\antigravity-ide\scratch\sitta-ut-web\`
+### II. STRUKTUR DAN LOKASI BERKAS PROYEK
 
-| Nama Berkas | Lokasi Lengkap | Fungsi & Peran |
+Seluruh berkas terorganisasi secara rapi dan relatif terhadap folder root repositori (`./`):
+
+| Nama Berkas / Folder | Lokasi Relatif | Fungsi & Deskripsi Teknis |
 |:---|:---|:---|
-| **README.md** | `sitta-ut-web/README.md` | Ringkasan teknis proyek, panduan instalasi, dan cara menjalankan. |
-| **DOKUMENTASI.md** | `sitta-ut-web/DOKUMENTASI.md` | Dokumen laporan praktikum ini (arsitektur, rincian komponen, & alur logika). |
-| **index.html** | `sitta-ut-web/index.html` | Antarmuka halaman masuk (*Login*), form validasi, alert, dan modal bantuan. |
-| **dashboard.html** | `sitta-ut-web/dashboard.html` | Halaman beranda utama dengan sapaan waktu otomatis, jam digital, dan 6 modul navigasi. |
-| **stok.html** | `sitta-ut-web/stok.html` | Tabel katalog stok modul bahan ajar UT serta form penambahan stok interaktif (DOM modal). |
-| **tracking.html** | `sitta-ut-web/tracking.html` | Antarmuka pelacakan ekspedisi bahan ajar (DO), status terkini, dan timeline kronologis. |
-| **style.css** | `sitta-ut-web/css/style.css` | Lembar gaya desain antarmuka, variabel warna institusional UT, tipografi, dan responsivitas. |
-| **data.js** | `sitta-ut-web/js/data.js` | Modul sumber data statis: `dataPengguna`, `dataBahanAjar`, dan `dataTracking`. |
-| **script.js** | `sitta-ut-web/js/script.js` | Modul skrip pengendali logika bisnis, manipulasi DOM, validasi, dan event listeners. |
-| **img/** | `sitta-ut-web/img/` | Direktori aset grafis, logo UT, serta gambar sampul buku materi pokok. |
+| **`index.html`** | `./index.html` | Halaman autentikasi / login pengguna, validasi input, kotak alert error, dan dialog modal reset sandi & daftar. |
+| **`dashboard.html`** | `./dashboard.html` | Dashboard utama pengguna yang memuat sapaan waktu otomatis, jam digital waktu nyata, profil user aktif, dan 6 navigasi menu. |
+| **`stok.html`** | `./stok.html` | Modul informasi katalog stok modul BMP dan modal interaktif penambahan baris data stok baru ke DOM tabel tanpa reload. |
+| **`tracking.html`** | `./tracking.html` | Halaman pelacakan Delivery Order (DO) bahan ajar, informasi ekspedisi (JNE / Pos Indonesia), dan alur timeline pengiriman. |
+| **`README.md`** | `./README.md` | Petunjuk cepat penggunaan aplikasi, kredensial demo, dan informasi umum proyek. |
+| **`DOKUMENTASI.md`** | `./DOKUMENTASI.md` | Laporan komprehensif praktikum, penjelasan arsitektur, data master, dan logika teknis pemrograman. |
+| **`.gitignore`** | `./.gitignore` | Berkas konfigurasi untuk mengabaikan berkas sistem dan berkas cache lokal. |
+| **`css/style.css`** | `./css/style.css` | Lembar gaya desain antarmuka terpusat (CSS Variables, Flexbox, Grid, Glassmorphism, dan responsivitas). |
+| **`js/data.js`** | `./js/data.js` | Modul penyimpan database statis terpisah: `dataPengguna`, `dataBahanAjar`, dan `dataTracking`. |
+| **`js/script.js`** | `./js/script.js` | Modul pengendali logika interaksi JavaScript, manipulasi DOM, validasi formulir, dan Web Storage API (`localStorage`). |
+| **`img/`** | `./img/` | Direktori aset grafis: `logo-ut.svg`, gambar sampul Buku Materi Pokok (BMP), serta ikon SVG kategori modul. |
 
 ---
 
 ### III. DATA MASTER & KREDENSIAL PENGUJIAN
-Sumber data didefinisikan pada berkas `js/data.js` dengan rincian berikut:
+
+Data master didefinisikan secara modular pada berkas `./js/data.js`:
 
 #### 1. Data Akun Pengguna (`dataPengguna`)
-Digunakan untuk menguji fungsi autentikasi pada `index.html`:
-- **Akun 1:** `rina@ut.ac.id` | Kata Sandi: `rina123` (Role: UPBJJ-UT, Lokasi: UPBJJ Jakarta)
-- **Akun 2:** `agus@ut.ac.id` | Kata Sandi: `agus123` (Role: UPBJJ-UT, Lokasi: UPBJJ Makassar)
-- **Akun 3:** `siti@ut.ac.id` | Kata Sandi: `siti123` (Role: Puslaba, Lokasi: Pusat)
-- **Akun 4:** `doni@ut.ac.id` | Kata Sandi: `doni123` (Role: Fakultas, Lokasi: FISIP)
-- **Akun 5:** `admin@ut.ac.id` | Kata Sandi: `admin123` (Role: Administrator, Lokasi: Pusat)
+Dapat langsung digunakan untuk menguji fungsionalitas login pada `index.html`:
+
+| No | Nama Pengguna | Alamat Email | Kata Sandi | Peran (Role) | Lokasi Unit Kerja |
+|:---|:---|:---|:---|:---|:---|
+| 1 | **Rina Wulandari** | `rina@ut.ac.id` | `rina123` | UPBJJ-UT | UPBJJ Jakarta |
+| 2 | **Agus Pranoto** | `agus@ut.ac.id` | `agus123` | UPBJJ-UT | UPBJJ Makassar |
+| 3 | **Siti Marlina** | `siti@ut.ac.id` | `siti123` | Puslaba | Kantor Pusat |
+| 4 | **Doni Setiawan** | `doni@ut.ac.id` | `doni123` | Fakultas | FISIP |
+| 5 | **Admin SITTA** | `admin@ut.ac.id` | `admin123` | Administrator | Kantor Pusat |
 
 #### 2. Data Bahan Ajar (`dataBahanAjar`)
-Memuat katalog awal 5 modul BMP UT:
+Katalog awal yang dimuat pada halaman `stok.html`:
 1. `ASIP4301` - Pengantar Ilmu Komunikasi (Edisi 2, Stok: 548, Lokasi: 0TMP01)
 2. `EKMA4216` - Manajemen Keuangan (Edisi 3, Stok: 392, Lokasi: 0JKT01)
 3. `EKMA4310` - Kepemimpinan (Edisi 1, Stok: 278, Lokasi: 0SBY02)
 4. `BIOL4211` - Mikrobiologi Dasar (Edisi 2, Stok: 165, Lokasi: 0MLG01)
 5. `PAUD4401` - Perkembangan Anak Usia Dini (Edisi 4, Stok: 204, Lokasi: 0UPBJJBDG)
 
-#### 3. Data Pelacakan Pengiriman (`dataTracking`)
-Digunakan untuk menguji pelacakan paket bahan ajar pada `tracking.html`:
-- **DO 2023001234**: Pengiriman JNE Express untuk Rina Wulandari (Status: *Dalam Perjalanan*).
-- **DO 2023005678**: Pengiriman Pos Indonesia untuk Agus Pranoto (Status: *Selesai Antar / Terkirim*).
+#### 3. Data Pelacakan Delivery Order (`dataTracking`)
+Nomor DO pengujian pada halaman `tracking.html`:
+- **DO `2023001234`**: Penerima Rina Wulandari (UPBJJ Jakarta), Ekspedisi JNE Express, Status: *Dalam Perjalanan*.
+- **DO `2023005678`**: Penerima Agus Pranoto (UPBJJ Bandung), Ekspedisi Pos Indonesia, Status: *Selesai Antar / Terkirim*.
 
 ---
 
-### IV. PENJELASAN LOGIKA PEMROGRAMAN & IMPLEMENTASI TEKNIS
+### IV. PENJELASAN LOGIKA & IMPLEMENTASI TEKNIS JAVASCRIPT
 
 #### 1. Mekanisme Autentikasi & Penyimpanan Sesi
-- **Pemeriksaan Input**: Fungsi `handleLoginSubmit()` pada `js/script.js` memvalidasi kelengkapan isian formulir.
-- **Validasi Kredensial**: Input email dan kata sandi dicocokkan dengan objek pada `dataPengguna`. Jika tidak valid, kotak peringatan kesalahan ditampilkan (`#loginAlertBox`).
-- **Persistensi State**: Apabila sukses, data pengguna aktif disimpan ke `localStorage` dengan kunci `sitta_current_user`, kemudian pengguna dialihkan ke `dashboard.html`.
+- **File Pengendali:** `./js/script.js` (Fungsi `handleLoginSubmit()`)
+- **Alur Kerja:**
+  1. Mengambil nilai dari input `#inputEmail` dan `#inputPassword`.
+  2. Melakukan verifikasi apakah kombinasi email dan password cocok dengan data pada array `dataPengguna`.
+  3. Jika kredensial salah, sistem menampilkan peringatan `#loginAlertBox` dengan pesan *"email/password yang anda masukkan salah"*.
+  4. Jika sukses, data pengguna aktif disimpan ke browser melalui `localStorage.setItem('sitta_current_user', JSON.stringify(user))` dan pengguna diarahkan ke `./dashboard.html`.
 
-#### 2. Sapaan Berbasis Waktu & Jam Digital
-- Pada `dashboard.html`, fungsi `updateDashboardGreeting()` mengeksekusi metode `new Date().getHours()`.
-  - Pukul `04:00 - 10:59`: "Selamat Pagi"
-  - Pukul `11:00 - 14:59`: "Selamat Siang"
-  - Pukul `15:00 - 17:59`: "Selamat Sore"
-  - Pukul `18:00 - 03:59`: "Selamat Malam"
-- Jam digital dinamis diperbarui secara berulang setiap 1000 milidetik via `setInterval()`.
+#### 2. Sapaan Berbasis Waktu & Jam Digital Waktu Nyata
+- **File Pengendali:** `./js/script.js` (Fungsi `updateDashboardGreeting()` & `startRealtimeClock()`)
+- **Alur Kerja:**
+  - Mengambil jam lokal saat ini menggunakan metode JavaScript `new Date().getHours()`.
+  - Mengatur ucapan sapaan secara dinamis:
+    - `04:00 - 10:59`: "Selamat Pagi"
+    - `11:00 - 14:59`: "Selamat Siang"
+    - `15:00 - 17:59`: "Selamat Sore"
+    - `18:00 - 03:59`: "Selamat Malam"
+  - `startRealtimeClock()` memanfaatkan `setInterval(..., 1000)` untuk memperbarui detak jam, hari, dan tanggal bahasa Indonesia secara real-time.
 
 #### 3. Manipulasi DOM Dinamis pada Penambahan Stok
-- Pada `stok.html`, tombol "Tambah Stok Bahan Ajar" memicu pembukaan elemen dialog modal `#modalTambahStok`.
-- Ketika form disubmit via `handleTambahStokSubmit()`:
-  1. Data input divalidasi tidak boleh kosong dan jumlah stok harus berupa angka positif.
-  2. Objek bahan ajar baru dibentuk dan ditambahkan ke memori lokal (`localStorage`).
-  3. Baris tabel HTML baru (`<tr>`) dibuat secara dinamis menggunakan elemen DOM (`document.createElement('tr')`) dan diinjeksi ke urutan paling atas (`tbody.prepend(row)`).
-  4. Efek visual sorotan (*highlight*) diberikan pada baris baru selama beberapa detik untuk memberikan umpan balik langsung kepada pengguna.
-  5. Jumlah total judul pada kartu ringkasan langsung bertambah secara reaktif.
+- **File Pengendali:** `./js/script.js` (Fungsi `handleTambahStokSubmit()`)
+- **Alur Kerja:**
+  1. Menerima data input dari form modal dialog `#modalTambahStok` (Kode Lokasi, Kode Bahan Ajar, Judul, Edisi, Stok).
+  2. Melakukan validasi kelengkapan nilai dan memastikan jumlah stok merupakan bilangan bulat positif.
+  3. Menyimpan item baru ke penyimpanan persisten `localStorage`.
+  4. Membuat elemen baris tabel baru (`document.createElement('tr')`) secara runtime dan menempatkannya ke posisi paling atas (`tbody.prepend(newRow)`).
+  5. Menambahkan kelas efek visual (`highlight-new-row`) untuk memberikan umpan balik visual animasi kepada pengguna bahwa baris telah berhasil masuk tanpa reload halaman.
+  6. Memperbarui total judul modul pada kartu ringkasan secara reaktif.
 
 #### 4. Pelacakan Ekspedisi Interaktif
-- Pada `tracking.html`, fungsi `lacakNomorDO(nomorDO)` membaca data dari `dataTracking`.
-- Jika nomor ditemukan, seluruh rincian pengiriman ditampilkan beserta rute riwayat perjalanan berupa garis waktu vertikal (*timeline stepper*).
-- Jika nomor tidak ditemukan, sistem menampilkan pesan status *"Nomor DO tidak ditemukan"*.
+- **File Pengendali:** `./js/script.js` (Fungsi `lacakNomorDO()`)
+- **Alur Kerja:**
+  - Membaca nomor DO dari input pencarian atau dari parameter URL `window.location.search`.
+  - Mencocokkan nomor DO pada objek `dataTracking`.
+  - Jika ditemukan, merender data ringkasan pengiriman dan mengiterasi array perjalanan (`perjalanan.map()`) menjadi elemen HTML timeline interaktif.
+  - Jika tidak ditemukan, menampilkan kotak status kesalahan dengan rekomendasi nomor pengujian.
 
 ---
 
 ### V. KESIMPULAN
-Aplikasi web SITTA UT telah memenuhi seluruh kaidah pemrograman web berbasis HTML5, CSS3 murni, dan Vanilla JavaScript (DOM Manipulation). Aplikasi dapat dijalankan langsung di berbagai peramban modern tanpa konfigurasi server yang rumit.
+Aplikasi web SITTA UT berhasil mengimplementasikan seluruh kompetensi praktikum pemrograman web: struktur semantik HTML5 yang rapi, lembar gaya CSS3 responsif modern, pemisahan data modular di JavaScript, serta manipulasi DOM dan penanganan event listeners secara interaktif. Berkas proyek siap dijalankan di berbagai peramban modern setelah di-clone dari repositori GitHub.
