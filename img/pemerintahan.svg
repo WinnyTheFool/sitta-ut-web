@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 420" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgPem" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f766e"/>
+      <stop offset="60%" stop-color="#115e59"/>
+      <stop offset="100%" stop-color="#134e4a"/>
+    </linearGradient>
+  </defs>
+  
+  <rect width="300" height="420" rx="8" fill="url(#bgPem)"/>
+  <rect x="0" y="0" width="14" height="420" fill="rgba(0,0,0,0.2)"/>
+  <line x1="14" y1="0" x2="14" y2="420" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+
+  <!-- Top Header Band -->
+  <rect x="24" y="24" width="252" height="46" rx="6" fill="#ffffff"/>
+  <circle cx="48" cy="47" r="14" fill="#0f766e"/>
+  <text x="48" y="52" fill="#ffd000" font-family="'Segoe UI', sans-serif" font-weight="900" font-size="14" text-anchor="middle">UT</text>
+  <text x="72" y="42" fill="#0f172a" font-family="'Segoe UI', sans-serif" font-weight="800" font-size="11">BUKU MATERI POKOK</text>
+  <text x="72" y="56" fill="#0f766e" font-family="'Segoe UI', sans-serif" font-weight="700" font-size="9" letter-spacing="1">UNIVERSITAS TERBUKA</text>
+
+  <!-- Code & SKS Tag -->
+  <rect x="24" y="90" width="130" height="26" rx="4" fill="#ffd000"/>
+  <text x="89" y="107" fill="#002855" font-family="'Segoe UI', sans-serif" font-weight="900" font-size="12" text-anchor="middle">IPEM4111 / 3 SKS</text>
+
+  <!-- Title -->
+  <text x="24" y="145" fill="#ffffff" font-family="'Segoe UI', sans-serif" font-weight="900" font-size="20">PENGANTAR</text>
+  <text x="24" y="172" fill="#99f6e4" font-family="'Segoe UI', sans-serif" font-weight="900" font-size="19">ILMU PEMERINTAHAN</text>
+  <text x="24" y="195" fill="#ccfbf1" font-family="'Segoe UI', sans-serif" font-weight="600" font-size="12">EDISI 1 - SISTEM BIROKRASI</text>
+
+  <!-- Illustration: Government Building Columns -->
+  <g transform="translate(65, 225)">
+    <!-- Pediment (Triangle) -->
+    <polygon points="85,15 15,45 155,45" fill="#ffd000"/>
+    <rect x="15" y="45" width="140" height="8" fill="#ffffff"/>
+    <!-- Columns -->
+    <rect x="25" y="53" width="14" height="42" fill="#ffffff" opacity="0.9"/>
+    <rect x="55" y="53" width="14" height="42" fill="#ffffff" opacity="0.9"/>
+    <rect x="85" y="53" width="14" height="42" fill="#ffffff" opacity="0.9"/>
+    <rect x="115" y="53" width="14" height="42" fill="#ffffff" opacity="0.9"/>
+    <!-- Base steps -->
+    <rect x="10" y="95" width="150" height="6" fill="#ffffff"/>
+    <rect x="5" y="101" width="160" height="7" fill="#ffffff" opacity="0.8"/>
+  </g>
+
+  <!-- Author & Bottom Bar -->
+  <line x1="24" y1="365" x2="276" y2="365" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+  <text x="24" y="385" fill="#ffffff" font-family="'Segoe UI', sans-serif" font-weight="700" font-size="11">Dr. Hanif Nurcholis, M.Si.</text>
+  <text x="24" y="400" fill="#99f6e4" font-family="'Segoe UI', sans-serif" font-size="9">Fakultas Hukum, Ilmu Sosial dan Ilmu Politik (FHISIP)</text>
+</svg>
