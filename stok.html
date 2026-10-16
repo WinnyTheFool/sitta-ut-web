@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Informasi &amp; Penambahan Stok Bahan Ajar - SITTA Universitas Terbuka</title>
+  <meta name="description" content="Katalog Buku Materi Pokok (BMP) dan Informasi Stok Fisik Gudang Bahan Ajar Universitas Terbuka. Penambahan data interaktif berbasis DOM.">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/svg+xml" href="img/logo-ut.svg">
+</head>
+<body>
+
+  <!-- ==========================================
+       TOP NAVBAR
+       ========================================== -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <div class="brand">
+        <img src="img/logo-ut.svg" alt="Universitas Terbuka" class="brand-logo">
+        <div class="brand-text">
+          <h1>SITTA <span>UT</span></h1>
+          <p>Tiras &amp; Transaksi Bahan Ajar</p>
+        </div>
+      </div>
+
+      <nav aria-label="Navigasi Utama">
+        <ul id="navLinks" class="nav-links">
+          <li><a href="dashboard.html"><span>🏠</span> Beranda</a></li>
+          <li><a href="stok.html" class="active"><span>📚</span> Informasi Bahan Ajar</a></li>
+          <li><a href="tracking.html"><span>🚚</span> Tracking Pengiriman</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-user">
+        <div class="user-badge">
+          <div class="user-avatar-initial" id="navAvatarInitial">R</div>
+          <div class="user-info">
+            <span class="user-name" id="navUserName">Rina Wulandari</span>
+            <span class="user-role" id="navUserRole">UPBJJ-UT Jakarta</span>
+          </div>
+        </div>
+        <button type="button" class="btn-logout" title="Keluar">
+          <span>Keluar</span> 🚪
+        </button>
+        <button type="button" id="navToggle" class="nav-toggle" aria-label="Buka navigasi">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container" style="padding-top: 32px; padding-bottom: 48px;">
+    <!-- Breadcrumb & Page Title -->
+    <div style="display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 16px; margin-bottom: 24px;">
+      <div>
+        <a href="dashboard.html" style="font-size: 0.85rem; color: #64748b; font-weight: 600;">← Kembali ke Beranda</a>
+        <h1 class="section-title" style="margin-top: 8px;">Informasi &amp; Penambahan Stok Bahan Ajar</h1>
+        <p class="section-desc">Katalog Buku Materi Pokok (BMP) UT dari data.js lengkap dengan cover buku dan form interaktif penambahan stok tanpa reload.</p>
+      </div>
+
+      <!-- Action Buttons -->
+      <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+        <button type="button" id="btnResetData" class="btn btn-secondary" style="box-shadow: var(--shadow-sm);" title="Kembalikan data ke awal data.js">
+          <span>🔄</span> Reset ke Data Awal
+        </button>
+        <button type="button" id="btnOpenTambahStok" class="btn btn-accent" onclick="openModal('modalTambahStok')" style="box-shadow: var(--shadow-md);">
+          <span>➕</span> Tambah Stok Bahan Ajar
+        </button>
+      </div>
+    </div>
+
+    <!-- Top Stock Metrics (Dihitung Dinamis dari data.js) -->
+    <section class="metrics-grid" style="margin-top: 0; margin-bottom: 24px;" aria-label="Statistik Bahan Ajar">
+      <div class="metric-card">
+        <div class="metric-icon blue">📚</div>
+        <div class="metric-data">
+          <h4 id="statTotalJudul">5</h4>
+          <p>Total Judul Bahan Ajar</p>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-icon green">📦</div>
+        <div class="metric-data">
+          <h4 id="statTotalFisik">1.587</h4>
+          <p>Total Fisik Buku (Eksemplar)</p>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-icon gold">🏢</div>
+        <div class="metric-data">
+          <h4 id="statTotalLokasi">5 Lokasi</h4>
+          <p>Titik Lokasi / Gudang UPBJJ</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Toolbar: Filter, Search, View Mode -->
+    <section class="stock-toolbar" aria-label="Alat Penyaringan Stok">
+      <div class="stock-filters">
+        <!-- Search Input -->
+        <div class="input-group">
+          <span class="input-icon">🔍</span>
+          <input 
+            type="text" 
+            id="inputSearchStock" 
+            class="form-control" 
+            placeholder="Cari kode barang (ASIP4301), nama modul, atau lokasi..."
+          >
+        </div>
+
+        <!-- Filter Dropdown Lokasi -->
+        <select id="selectLokasiFilter" class="select-control" aria-label="Filter Lokasi">
+          <option value="SEMUA">Semua Lokasi Gudang</option>
+          <option value="0TMP01">0TMP01 (Transit Pusat)</option>
+          <option value="0JKT01">0JKT01 (UPBJJ Jakarta)</option>
+          <option value="0SBY02">0SBY02 (UPBJJ Surabaya)</option>
+          <option value="0MLG01">0MLG01 (UPBJJ Malang)</option>
+          <option value="0UPBJJBDG">0UPBJJBDG (UPBJJ Bandung)</option>
+        </select>
+      </div>
+
+      <!-- View Mode Toggle (Grid vs Table) -->
+      <div class="view-toggle" aria-label="Pilihan Tampilan">
+        <button type="button" id="btnViewGrid" class="toggle-btn" title="Tampilan Kartu / Grid">
+          🗂️ Grid Kartu
+        </button>
+        <button type="button" id="btnViewTable" class="toggle-btn active" title="Tampilan Tabel">
+          📋 Tabel Detail
+        </button>
+      </div>
+    </section>
+
+    <!-- 1. Table View (Rendered by JavaScript DOM) -->
+    <section id="stockTableCard" class="stock-table-card" aria-label="Tabel Bahan Ajar">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th style="width: 75px; text-align: center;">Cover</th>
+            <th>Kode Lokasi</th>
+            <th>Kode Barang</th>
+            <th>Nama Bahan Ajar</th>
+            <th>Jenis</th>
+            <th>Edisi</th>
+            <th>Jumlah Stok</th>
+            <th>Status</th>
+            <th style="text-align: center; width: 140px;">Aksi</th>
+          </tr>
+        </thead>
+        <tbody id="stockTableBody">
+          <!-- Dynamic DOM rows will be injected here from dataBahanAjar -->
+        </tbody>
+      </table>
+    </section>
+
+    <!-- 2. Grid Cards View (Rendered by JavaScript DOM) -->
+    <section id="bookCardsGrid" class="book-cards-grid" style="display: none;" aria-label="Daftar Kartu Bahan Ajar">
+      <!-- Dynamic DOM Cards will be injected here from dataBahanAjar -->
+    </section>
+  </main>
+
+  <!-- ==========================================
+       MODAL: FORM PENAMBAHAN STOK BAHAN AJAR (DOM INTERAKTIF)
+       ========================================== -->
+  <div id="modalTambahStok" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalTambahTitle">
+    <div class="modal-container" style="max-width: 640px;">
+      <div class="modal-header">
+        <h3 id="modalTambahTitle">➕ Tambah Stok Bahan Ajar Baru</h3>
+        <button type="button" class="modal-close-btn" onclick="closeModal('modalTambahStok')" aria-label="Tutup form">&times;</button>
+      </div>
+
+      <form id="formTambahStok">
+        <div class="modal-body">
+          <p style="font-size: 0.88rem; color: #64748b; margin-bottom: 20px;">
+            Masukkan rincian data bahan ajar baru ke dalam sistem logistik SITTA. Baris data baru akan langsung ditambahkan ke DOM tabel/kartu secara dinamis tanpa me-reload browser.
+          </p>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <div class="form-group">
+              <label for="inputKodeLokasi" class="form-label">Kode Lokasi Gudang *</label>
+              <input type="text" id="inputKodeLokasi" class="form-control" placeholder="misal: 0JKT01, 0SBY02" style="text-transform: uppercase;" required>
+            </div>
+
+            <div class="form-group">
+              <label for="inputKodeBarang" class="form-label">Kode Barang (BMP) *</label>
+              <input type="text" id="inputKodeBarang" class="form-control" placeholder="misal: EKMA4216" style="text-transform: uppercase;" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="inputNamaBarang" class="form-label">Nama Bahan Ajar *</label>
+            <input type="text" id="inputNamaBarang" class="form-control" placeholder="misal: Manajemen Keuangan" required>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px;">
+            <div class="form-group">
+              <label for="inputJenisBarang" class="form-label">Jenis Barang *</label>
+              <select id="inputJenisBarang" class="form-control" required>
+                <option value="BMP" selected>BMP (Buku Materi Pokok)</option>
+                <option value="Panduan Praktikum">Panduan Praktikum</option>
+                <option value="Modul TAP">Modul TAP</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="inputEdisi" class="form-label">Edisi *</label>
+              <input type="text" id="inputEdisi" class="form-control" placeholder="misal: 1, 2, 3" value="1" required>
+            </div>
+
+            <div class="form-group">
+              <label for="inputStok" class="form-label">Jumlah Stok Fisik *</label>
+              <input type="number" id="inputStok" class="form-control" placeholder="misal: 150" min="1" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="selectCover" class="form-label">Pilihan Cover Bahan Ajar</label>
+            <select id="selectCover" class="form-control">
+              <option value="img/pengantar_komunikasi.jpg">Cover Pengantar Ilmu Komunikasi (Biru)</option>
+              <option value="img/manajemen_keuangan.jpg">Cover Manajemen Keuangan (Hijau Emerald)</option>
+              <option value="img/kepemimpinan.jpg">Cover Kepemimpinan (Oranye Emas)</option>
+              <option value="img/mikrobiologi.jpg">Cover Mikrobiologi Dasar (Teal Toska)</option>
+              <option value="img/paud_perkembangan.jpg">Cover Perkembangan Anak Usia Dini (Ungu)</option>
+              <option value="img/default-book.svg">Cover Buku Default UT</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="closeModal('modalTambahStok')">Batal</button>
+          <button type="submit" id="btnSubmitStok" class="btn btn-accent">
+            Tambah Stok Sekarang ➔
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="toast-container" aria-live="polite"></div>
+
+  <!-- Scripts Modular -->
+  <script src="js/data.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>
