@@ -1,161 +1,116 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pelacakan Delivery Order (DO) - SITTA Universitas Terbuka</title>
-  <meta name="description" content="Lacak pengiriman Delivery Order (DO) Buku Materi Pokok Universitas Terbuka secara live dan akurat.">
+  <title>Tracking Pengiriman - SITTA Universitas Terbuka</title>
+  <meta name="description" content="Lacak status Delivery Order (DO) bahan ajar Universitas Terbuka.">
   <link rel="stylesheet" href="css/style.css">
-  <link rel="icon" type="image/svg+xml" href="img/logo-ut.svg">
 </head>
 <body>
 
-  <!-- ==========================================
-       TOP NAVBAR
-       ========================================== -->
+  <!-- ======== NAVBAR ======== -->
   <header class="navbar">
-    <div class="container nav-container">
+    <div class="nav-container">
       <div class="brand">
-        <img src="img/logo-ut.svg" alt="Universitas Terbuka" class="brand-logo">
+        <img src="img/logo-ut.svg" alt="Logo UT" class="brand-logo">
         <div class="brand-text">
           <h1>SITTA <span>UT</span></h1>
-          <p>Tiras &amp; Transaksi Bahan Ajar</p>
+          <p>Tiras &amp; Distribusi Bahan Ajar</p>
         </div>
       </div>
-
-      <nav aria-label="Navigasi Utama">
-        <ul id="navLinks" class="nav-links">
-          <li><a href="dashboard.html"><span>🏠</span> Beranda</a></li>
-          <li><a href="stok.html"><span>📚</span> Informasi Bahan Ajar</a></li>
-          <li><a href="tracking.html" class="active"><span>🚚</span> Tracking Pengiriman</a></li>
+      <nav>
+        <ul class="nav-menu">
+          <li><a href="stok.html">Informasi Bahan Ajar</a></li>
+          <li><a href="tracking.html" class="active">Tracking Pengiriman</a></li>
+          <li class="dropdown">
+            <a href="javascript:void(0)">Laporan</a>
+            <div class="dropdown-menu">
+              <a href="dashboard.html">Monitoring Progress DO Bahan Ajar</a>
+              <a href="dashboard.html">Rekap Bahan Ajar</a>
+            </div>
+          </li>
+          <li><a href="dashboard.html">Histori Transaksi Bahan Ajar</a></li>
         </ul>
       </nav>
-
-      <div class="nav-user">
-        <div class="user-badge">
-          <div class="user-avatar-initial" id="navAvatarInitial">R</div>
-          <div class="user-info">
-            <span class="user-name" id="navUserName">Rina Wulandari</span>
-            <span class="user-role" id="navUserRole">UPBJJ-UT Jakarta</span>
-          </div>
-        </div>
-        <button type="button" class="btn-logout" title="Keluar">
-          <span>Keluar</span> 🚪
-        </button>
-        <button type="button" id="navToggle" class="nav-toggle" aria-label="Buka navigasi">☰</button>
+      <div class="nav-right">
+        <span class="nav-user-name" id="navUserName">Rina Wulandari</span>
+        <button type="button" class="btn-logout" onclick="window.location.href='index.html'">Keluar</button>
       </div>
     </div>
   </header>
 
-  <main class="container" style="padding-top: 32px; padding-bottom: 48px;">
-    <!-- Breadcrumb & Header Title -->
-    <div style="margin-bottom: 24px;">
-      <a href="dashboard.html" style="font-size: 0.85rem; color: #64748b; font-weight: 600;">← Kembali ke Beranda</a>
-      <h1 class="section-title" style="margin-top: 8px;">Pelacakan Delivery Order (DO) Bahan Ajar</h1>
-      <p class="section-desc">Pantau status distribusi modul perkuliahan, ekspedisi pengiriman, dan riwayat linimasa perjalanan paket secara real-time.</p>
+  <!-- ======== KONTEN ======== -->
+  <main class="page-wrapper">
+
+    <a href="dashboard.html" class="back-link">&#8592; Kembali ke Dashboard</a>
+
+    <div class="page-header">
+      <h2>Tracking Pengiriman</h2>
+      <p>Lacak status pengiriman Delivery Order (DO) bahan ajar</p>
     </div>
 
-    <!-- Search Box (Nomor DO dan Tombol Cari) -->
-    <section class="tracking-search-box" aria-label="Form Pencarian DO">
-      <form id="formTracking" class="search-form-row">
-        <div class="input-group">
-          <span class="input-icon">🔍</span>
-          <input 
-            type="text" 
-            id="inputNoDO" 
-            class="form-control" 
-            placeholder="Masukkan Nomor Delivery Order (misal: 2023001234 atau 2023005678)" 
-            value="2023001234" 
-            required 
-            autocomplete="off"
-          >
-        </div>
-        <button type="submit" id="btnCariDO" class="btn btn-primary">
-          Cari Pengiriman DO ➔
-        </button>
-      </form>
+    <!-- Form Cari -->
+    <div class="tracking-search">
+      <label for="inputNoDO">No. DO/Billing:</label>
+      <input type="text" id="inputNoDO" placeholder="Contoh: 2023001234" value="2023001234" autocomplete="off">
+      <button type="button" id="btnCariDO" class="btn btn-yellow">Lacak</button>
+    </div>
 
-      <!-- Chips Bantuan Cepat Pengujian Data -->
-      <div class="search-quick-chips">
-        <span class="chips-label">Nomor DO di Database (Klik Cepat):</span>
-        <button type="button" class="chip-btn" data-do="2023001234">DO: 2023001234 (Rina Wulandari - JNE)</button>
-        <button type="button" class="chip-btn" data-do="2023005678">DO: 2023005678 (Agus Pranoto - Pos Indonesia)</button>
+    <!-- Pesan tidak ditemukan -->
+    <div id="trackingNotFound" class="not-found-box" style="display:none;">
+      <p>Nomor DO "<strong id="notFoundQuery"></strong>" tidak ditemukan.</p>
+      <p style="margin-top:8px; font-size:12px;">Coba: 2023001234 atau 2023005678</p>
+    </div>
+
+    <!-- Hasil Tracking (Dirender oleh JavaScript) -->
+    <div id="trackingResult" style="display:none;">
+
+      <!-- Card Header Biru (Nama + Nomor DO) -->
+      <div class="tracking-result-header">
+        <h3 id="resNama">RINA WULANDARI</h3>
+        <div class="do-number" id="resNoDO">2023001234</div>
+        <div class="header-meta" id="resMeta">TANGERANG SELATAN &rarr; JAKARTA SELATAN</div>
       </div>
-    </section>
 
-    <!-- Not Found State -->
-    <div id="trackingNotFound" style="display: none; background: #ffffff; padding: 48px; border-radius: 16px; border: 1px dashed #cbd5e1; text-align: center; margin-bottom: 40px;">
-      <div style="font-size: 3rem; margin-bottom: 12px;">🔍❌</div>
-      <h3 style="font-size: 1.3rem; color: #002b5c; margin-bottom: 8px;">Nomor DO Tidak Ditemukan</h3>
-      <p style="color: #64748b; max-width: 520px; margin: 0 auto 20px;">
-        Nomor Delivery Order "<span id="notFoundQuery" style="font-weight: 700; color: #ef4444;"></span>" tidak tercatat dalam basis data SITTA UT. Silakan periksa kembali nomor DO yang Anda masukkan.
-      </p>
-      <button type="button" class="btn btn-secondary" onclick="document.getElementById('inputNoDO').value='2023001234'; document.getElementById('btnCariDO').click();">
-        Gunakan Contoh DO: 2023001234
-      </button>
-    </div>
+      <!-- Body -->
+      <div class="tracking-result-body">
 
-    <!-- Tracking Result Card (Dirender Dinamis oleh JavaScript DOM) -->
-    <section id="trackingResultContainer" class="tracking-result-card" aria-label="Hasil Pelacakan DO">
-      <!-- 1. Header Bar -->
-      <div class="tracking-header">
-        <div class="tracking-header-left">
-          <div style="font-size: 0.8rem; text-transform: uppercase; color: #003f7a; font-weight: 800; letter-spacing: 1px;">
-            Nomor Delivery Order (DO)
+        <!-- Info Grid -->
+        <div class="tracking-info-grid">
+          <div class="info-item">
+            <label>Ekspedisi</label>
+            <span id="resEkspedisi">JNE</span>
           </div>
-          <h3 id="resNoDO">2023001234</h3>
-          <p>Kode Paket Pengiriman: <span id="resPaket" style="font-weight: 700; color: #003f7a;">0JKT01</span></p>
+          <div class="info-item">
+            <label>Tanggal Kirim</label>
+            <span id="resTglKirim">2025-08-25</span>
+          </div>
+          <div class="info-item">
+            <label>Total Pembayaran</label>
+            <span id="resTotal">Rp 180.000</span>
+          </div>
+          <div class="info-item">
+            <label>Status</label>
+            <span id="resStatus"><span class="badge badge-warning">Dalam Perjalanan</span></span>
+          </div>
         </div>
-        <div class="tracking-header-right">
-          <span id="resStatusBadge" class="badge badge-warning" style="font-size: 0.95rem; padding: 8px 18px;">
-            Dalam Perjalanan
-          </span>
-        </div>
+
+        <!-- Timeline Perjalanan Paket -->
+        <div class="timeline-title">Perjalanan Paket</div>
+        <ul id="resTimeline" class="timeline-list">
+          <!-- Diisi oleh JavaScript -->
+        </ul>
+
       </div>
+    </div>
 
-      <!-- 2. Meta Grid (Informasi Mahasiswa, Status, Ekspedisi, Tanggal, Total) -->
-      <div class="tracking-meta-grid">
-        <div>
-          <div class="meta-item-label">Nama Mahasiswa / Penerima</div>
-          <div class="meta-item-value" id="resNama">Rina Wulandari</div>
-          <div style="font-size: 0.8rem; color: #64748b;">Status: Penerima Terdaftar</div>
-        </div>
-
-        <div>
-          <div class="meta-item-label">Mitra Ekspedisi Logistik</div>
-          <div class="meta-item-value" id="resEkspedisi">JNE</div>
-          <div style="font-size: 0.8rem; color: #10b981; font-weight: 700;">Pengiriman Resmi UT</div>
-        </div>
-
-        <div>
-          <div class="meta-item-label">Tanggal Pengiriman</div>
-          <div class="meta-item-value" id="resTglKirim">2025-08-25</div>
-          <div style="font-size: 0.8rem; color: #64748b;">Loket: Tangerang Selatan</div>
-        </div>
-
-        <div>
-          <div class="meta-item-label">Total Biaya Bahan Ajar</div>
-          <div class="meta-item-value" id="resTotal" style="color: #003f7a; font-weight: 800;">Rp 180.000</div>
-          <div style="font-size: 0.8rem; color: #64748b;">Lunas Registrasi</div>
-        </div>
-      </div>
-
-      <!-- 3. Detail Linimasa / Riwayat Perjalanan Paket Secara Dinamis -->
-      <div style="padding: 24px 30px;">
-        <h4 style="font-size: 1.15rem; font-weight: 800; color: #002b5c; margin-bottom: 20px; display: flex; align-items: center; gap: 8px;">
-          <span>⏱️</span> Detail Linimasa Perjalanan Paket
-        </h4>
-        <ol id="resTimeline" class="timeline-stepper">
-          <!-- Timeline step items dirender dinamis dari array perjalanan -->
-        </ol>
-      </div>
-    </section>
   </main>
 
-  <!-- Toast Notification Container -->
-  <div id="toastContainer" class="toast-container" aria-live="polite"></div>
+  <footer class="site-footer">
+    &copy; 2025 SITTA Universitas Terbuka &mdash; Sistem Informasi Tiras &amp; Distribusi Bahan Ajar
+  </footer>
 
-  <!-- Scripts Modular -->
   <script src="js/data.js"></script>
   <script src="js/script.js"></script>
 </body>

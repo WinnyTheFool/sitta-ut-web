@@ -1,188 +1,96 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login - SITTA Universitas Terbuka</title>
-  <meta name="description" content="Sistem Informasi Tiras dan Distribusi Bahan Ajar (SITTA) Universitas Terbuka. Akses layanan distribusi modul BMP mandiri dan tracking pengiriman.">
+  <meta name="description" content="Halaman login Sistem Informasi Tiras dan Distribusi Bahan Ajar (SITTA) Universitas Terbuka.">
   <link rel="stylesheet" href="css/style.css">
-  <link rel="icon" type="image/svg+xml" href="img/logo-ut.svg">
 </head>
 <body class="login-body">
 
-  <main class="login-wrapper">
-    <!-- Brand / Welcome Panel -->
-    <section class="login-brand-panel" aria-label="Informasi SITTA Universitas Terbuka">
-      <div class="login-logo-header">
-        <img src="img/logo-ut.svg" alt="Logo Universitas Terbuka" class="brand-logo-img">
-        <div class="login-brand-title">
-          SITTA <span>UT</span>
+  <!-- ======== FORM LOGIN ======== -->
+  <div class="login-card">
+    <h2>Selamat Datang</h2>
+
+    <!-- Alert Notifikasi -->
+    <div id="loginAlert" class="alert-box alert-danger" style="display:none;">
+      <span id="loginAlertText">email/password yang anda masukkan salah</span>
+    </div>
+
+    <form id="formLogin" novalidate>
+
+      <!-- Input Email -->
+      <div class="form-group">
+        <div class="form-input-row">
+          <span class="input-icon">&#9993;</span>
+          <input type="email" id="inputEmail" name="email" placeholder="Email" required autocomplete="email">
         </div>
       </div>
 
-      <div class="login-brand-hero">
-        <h2>Sistem Informasi Tiras &amp; Transaksi Bahan Ajar</h2>
-        <p>Layanan terpadu pendistribusian Buku Materi Pokok (BMP) Universitas Terbuka ke seluruh UPBJJ dan alamat mahasiswa di seluruh Nusantara.</p>
-      </div>
-
-      <ul class="login-highlights">
-        <li><span>📦</span> Pelacakan Delivery Order (DO) Real-Time</li>
-        <li><span>📚</span> Katalog &amp; Informasi Stok Bahan Ajar BMP</li>
-        <li><span>⚡</span> Terintegrasi dengan Ekspedisi Resmi (JNE, Pos Indonesia)</li>
-        <li><span>🎓</span> Akses Pengguna UPBJJ-UT, Puslaba, Fakultas &amp; Mahasiswa</li>
-      </ul>
-
-      <div style="margin-top: 32px; padding: 14px 18px; background: rgba(255,255,255,0.08); border-radius: 12px; font-size: 0.82rem; border-left: 3px solid #ffc72c;">
-        <strong>Praktikum Pemrograman Web Front-End:</strong><br>
-        SITTA UT dibangun menggunakan arsitektur modular HTML5, CSS3, dan Vanilla JavaScript DOM.
-      </div>
-    </section>
-
-    <!-- Login Form Panel -->
-    <section class="login-form-panel" aria-label="Form Autentikasi Pengguna">
-      <div class="login-form-header">
-        <h3>Masuk ke SITTA UT</h3>
-        <p>Silakan masukkan email dan kata sandi akun Anda</p>
-      </div>
-
-      <!-- Alert Box untuk Notifikasi Gagal / Sukses -->
-      <div id="loginAlertBox" class="alert-box alert-danger" style="display: none;" role="alert">
-        <span class="alert-icon">⚠️</span>
-        <span id="loginAlertText" class="alert-message">email/password yang anda masukkan salah</span>
-      </div>
-
-      <form id="formLogin" novalidate>
-        <!-- Email Input -->
-        <div class="form-group">
-          <label for="inputEmail" class="form-label">Alamat Email Pengguna</label>
-          <div class="form-input-box">
-            <input 
-              type="email" 
-              id="inputEmail" 
-              name="email" 
-              placeholder="contoh: rina@ut.ac.id" 
-              required 
-              autocomplete="email"
-            >
-          </div>
-        </div>
-
-        <!-- Password Input -->
-        <div class="form-group">
-          <label for="inputPassword" class="form-label">Kata Sandi (Password)</label>
-          <div class="form-input-box">
-            <input 
-              type="password" 
-              id="inputPassword" 
-              name="password" 
-              placeholder="Masukkan kata sandi akun" 
-              required 
-              autocomplete="current-password"
-            >
-            <button 
-              type="button" 
-              id="btnTogglePassword" 
-              class="btn-toggle-eye" 
-              aria-label="Tampilkan atau sembunyikan kata sandi" 
-              title="Tampilkan password"
-            >👁️</button>
-          </div>
-        </div>
-
-        <!-- Options: Remember Me & Forgot Password -->
-        <div class="form-options-row">
-          <label class="checkbox-label">
-            <input type="checkbox" id="rememberMe" checked>
-            <span>Ingat saya di perangkat ini</span>
-          </label>
-          <button type="button" id="btnLupaPassword" class="link-btn">
-            Lupa Password?
-          </button>
-        </div>
-
-        <!-- Submit Button -->
-        <button type="submit" id="btnSubmitLogin" class="btn btn-primary btn-block">
-          Masuk ke Sistem SITTA ➔
-        </button>
-      </form>
-
-      <!-- Action Register Modal -->
-      <div class="login-footer-action">
-        <span>Belum memiliki akun SITTA?</span>
-        <button type="button" id="btnDaftar" class="link-btn" style="margin-left: 6px; font-weight: 700;">
-          Daftar Akun Baru
-        </button>
-      </div>
-
-      <!-- Demo Accounts Hint (Bantuan Pengujian Cepat Praktikum) -->
-      <div class="demo-account-hint">
-        <strong>💡 Akun Pengujian Praktikum (Klik untuk mengisi cepat):</strong>
-        <div class="demo-chips-grid">
-          <button type="button" class="demo-chip" onclick="fillLoginForm('rina@ut.ac.id', 'rina123')">
-            <strong>Rina Wulandari (UPBJJ)</strong>: rina@ut.ac.id / rina123
-          </button>
-          <button type="button" class="demo-chip" onclick="fillLoginForm('agus@ut.ac.id', 'agus123')">
-            <strong>Agus Pranoto (UPBJJ)</strong>: agus@ut.ac.id / agus123
-          </button>
-          <button type="button" class="demo-chip" onclick="fillLoginForm('admin@ut.ac.id', 'admin123')">
-            <strong>Admin SITTA (Pusat)</strong>: admin@ut.ac.id / admin123
-          </button>
+      <!-- Input Password -->
+      <div class="form-group">
+        <div class="form-input-row">
+          <span class="input-icon">&#128273;</span>
+          <input type="password" id="inputPassword" name="password" placeholder="Password" required autocomplete="current-password">
         </div>
       </div>
-    </section>
-  </main>
 
-  <!-- ==========================================
-       MODAL 1: LUPA PASSWORD
-       ========================================== -->
-  <div id="modalLupaPassword" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalLupaTitle">
-    <div class="modal-container">
+      <!-- Lupa Password -->
+      <div class="forgot-row">
+        <button type="button" id="btnLupaPassword" class="link-btn">Lupa password ?</button>
+      </div>
+
+      <!-- Tombol Masuk -->
+      <button type="submit" id="btnMasuk" class="btn-masuk">Masuk</button>
+
+    </form>
+
+    <!-- Daftar -->
+    <div class="login-footer">
+      <span>Belum punya akun?</span>
+      <button type="button" id="btnDaftar" class="link-btn" style="margin-left:6px;">Daftar</button>
+    </div>
+  </div>
+
+  <!-- ======== MODAL: LUPA PASSWORD ======== -->
+  <div id="modalLupaPassword" class="modal-overlay" role="dialog" aria-modal="true">
+    <div class="modal-box">
       <div class="modal-header">
-        <h3 id="modalLupaTitle">🔑 Reset Kata Sandi</h3>
-        <button type="button" class="modal-close-btn" onclick="closeModal('modalLupaPassword')" aria-label="Tutup modal">&times;</button>
+        <h3>Lupa Password</h3>
+        <button type="button" class="modal-close" onclick="tutupModal('modalLupaPassword')">&times;</button>
       </div>
       <form id="formLupaPassword">
         <div class="modal-body">
-          <p style="font-size: 0.9rem; color: #64748b; margin-bottom: 16px;">
-            Masukkan alamat email yang terdaftar pada sistem SITTA UT. Tautan verifikasi pemulihan kata sandi akan dikirimkan ke email Anda.
-          </p>
+          <p>Masukkan email yang terdaftar. Link reset password akan dikirim ke email Anda.</p>
           <div class="form-group">
-            <label for="inputResetEmail" class="form-label">Email Terdaftar</label>
-            <input 
-              type="email" 
-              id="inputResetEmail" 
-              class="form-control" 
-              placeholder="misal: rina@ut.ac.id" 
-              required
-            >
+            <label class="form-label" for="inputResetEmail">Email Terdaftar</label>
+            <input type="email" id="inputResetEmail" class="form-control" placeholder="Email anda" required>
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" onclick="closeModal('modalLupaPassword')">Batal</button>
-          <button type="submit" class="btn btn-primary">Kirim Tautan Reset</button>
+          <button type="button" class="btn btn-secondary" onclick="tutupModal('modalLupaPassword')">Batal</button>
+          <button type="submit" class="btn btn-yellow">Kirim</button>
         </div>
       </form>
     </div>
   </div>
 
-  <!-- ==========================================
-       MODAL 2: DAFTAR AKUN BARU
-       ========================================== -->
-  <div id="modalDaftar" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalDaftarTitle">
-    <div class="modal-container">
+  <!-- ======== MODAL: DAFTAR AKUN ======== -->
+  <div id="modalDaftar" class="modal-overlay" role="dialog" aria-modal="true">
+    <div class="modal-box">
       <div class="modal-header">
-        <h3 id="modalDaftarTitle">📝 Registrasi Pengguna Baru SITTA</h3>
-        <button type="button" class="modal-close-btn" onclick="closeModal('modalDaftar')" aria-label="Tutup modal">&times;</button>
+        <h3>Daftar Akun Baru</h3>
+        <button type="button" class="modal-close" onclick="tutupModal('modalDaftar')">&times;</button>
       </div>
       <form id="formDaftar">
         <div class="modal-body">
           <div class="form-group">
-            <label for="regNama" class="form-label">Nama Lengkap *</label>
+            <label class="form-label" for="regNama">Nama Lengkap *</label>
             <input type="text" id="regNama" class="form-control" placeholder="Nama Lengkap" required>
           </div>
-
           <div class="form-group">
-            <label for="regRole" class="form-label">Peran / Role Pengguna *</label>
+            <label class="form-label" for="regRole">Peran / Role *</label>
             <select id="regRole" class="form-control" required>
               <option value="UPBJJ-UT">UPBJJ-UT</option>
               <option value="Puslaba">Puslaba</option>
@@ -191,34 +99,23 @@
               <option value="Administrator">Administrator</option>
             </select>
           </div>
-
           <div class="form-group">
-            <label for="regLokasi" class="form-label">Wilayah Kerja / UPBJJ *</label>
-            <input type="text" id="regLokasi" class="form-control" placeholder="misal: UPBJJ Jakarta, UPBJJ Surabaya" required>
+            <label class="form-label" for="regEmail">Email *</label>
+            <input type="email" id="regEmail" class="form-control" placeholder="Email" required>
           </div>
-
           <div class="form-group">
-            <label for="regEmail" class="form-label">Alamat Email *</label>
-            <input type="email" id="regEmail" class="form-control" placeholder="nama@ut.ac.id" required>
-          </div>
-
-          <div class="form-group">
-            <label for="regPassword" class="form-label">Kata Sandi Baru *</label>
+            <label class="form-label" for="regPassword">Password *</label>
             <input type="password" id="regPassword" class="form-control" placeholder="Minimal 6 karakter" required>
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" onclick="closeModal('modalDaftar')">Batal</button>
-          <button type="submit" class="btn btn-primary">Daftar Akun Baru</button>
+          <button type="button" class="btn btn-secondary" onclick="tutupModal('modalDaftar')">Batal</button>
+          <button type="submit" class="btn btn-yellow">Daftar Sekarang</button>
         </div>
       </form>
     </div>
   </div>
 
-  <!-- Toast Container -->
-  <div id="toastContainer" class="toast-container" aria-live="polite"></div>
-
-  <!-- Scripts Modular -->
   <script src="js/data.js"></script>
   <script src="js/script.js"></script>
 </body>
